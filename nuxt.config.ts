@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     // @ts-ignore
 
     css: [
-        "@/assets/main.css",
         "@/assets/iconfont/iconfont.css",
         '@unocss/reset/tailwind.css',
         '@/styles/index.less',
