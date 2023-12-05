@@ -1,0 +1,166 @@
+// 自定义字体
+/*@font-face {
+  font-family: HarmonyOS-Sans;
+  src: url(@/assets/font/HarmonyOS_Sans_SC_Regular.woff2);
+}*/
+// @font-face {
+//   font-family: ZhuZiAWan;
+//   src: url(@/assets/font/ZhuZiAWan.tff);
+// }
+div,
+header,
+footer,
+nav,
+ul,
+li,
+ol,
+section,
+aside {
+  box-sizing: border-box;
+}
+body {
+  // overflow-y: overlay;
+  min-height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: HarmonyOS-Sans, ZhuZiAWan, -apple-system, Helvetica Neue, Helvetica, PingFang SC,
+    Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+// 选中背景和文字颜色
+::selection {
+  background: var(--main-color);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 0px;
+  background: transparent;
+  overflow-x: auto;
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+  width: 0px;
+  border-radius: 0px;
+  background: transparent;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  width: 6px;
+  border-radius: 10000px;
+  background: var(--scrollbar-bgc);//这里可以设置透明
+  transition: all 0.2s;
+
+}
+
+/* 滚动条滑块 hover */
+:hover::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-bgc);
+}
+
+
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-corner {
+  //滑块按钮
+  height: 0;
+  background: transparent;
+}
+
+/* 不设置默认滚动的也是body元素 */
+// html{
+//   height: 100%;
+// }
+// body{
+//   height: 100%;
+//   overflow: auto;
+// }
+// 富文本编辑器全局样式
+.editor {
+  .w-e-text-container {
+    background: transparent;
+  }
+}
+
+// 自定义可选中标签
+.custom-tag {
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 8px;
+  color: #fff;
+  border-radius: 3px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  padding: 0 7px;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.custom-tag.active {
+  transform: scale(1.05);
+}
+
+.app-layout-content {
+}
+
+// body {
+//   font-size: 14px;
+// }
+
+.common-content {
+  position: relative;
+  margin: 20px auto 0;
+  width: 70vw;
+  min-height: 150vh;
+  min-width: 40%;
+  overflow: hidden;
+  z-index: 0;
+  padding: 0 0 20px 0;
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
+}
+
+// 轮播图不能选
+.banner-content {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.text-color {
+  color: var(--text-color);
+}
+
+// 渐变文字
+.gradient-text {
+  background: linear-gradient(-70deg, #db469f 0%, #2188ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// 常用类名
+.text-color {
+  color: var(--text-color);
+}
+.main-color {
+  color: var(--main-color);
+}
+.padding-top-bar {
+  position: relative;
+  &::after {
+    content: '';
+    height: 104px;
+    @apply absolute left-0 top-0 w-full from-black bg-gradient-to-r to-gray-700;
+  }
+}
+.gradient-bar {
+  &::after {
+    background: var(--nav-color);
+  }
+}
+.main-bgc {
+  background: var(--main-bgc);
+}
