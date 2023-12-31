@@ -1,5 +1,5 @@
-import { baseUrl } from '~~/config'
-import { messageDanger } from '~~/utils/toast'
+import { baseUrl } from '../config'
+import { messageDanger } from '../utils/toast'
 let errorResponse: ApiResponse = {
   success: false,
   code: 0,
@@ -15,6 +15,7 @@ const $http = async (baseUrl: string, options: any): Promise<ApiResponse> => {
   //   bool: ["POST", "PUT", "PATCH"].includes(method.toUpperCase()),
   // });
 
+  // @ts-ignore
   const res: any = await $fetch<ApiResponse>(baseUrl, {
     headers: {
       ...headers,

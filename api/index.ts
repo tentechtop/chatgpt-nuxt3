@@ -1,7 +1,7 @@
 import * as article from './article'
 import * as tag from './tag'
 import * as category from './category'
-import request from '~~/api/request.js'
+import request from '../api/request.js'
 
 // 获取用户信息
 

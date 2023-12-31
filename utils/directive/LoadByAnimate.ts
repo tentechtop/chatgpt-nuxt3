@@ -1,12 +1,13 @@
 
 export default {
+    // @ts-ignore
     mounted(el, binding) {
         const defaultAnimationClass = 'animate__fadeInUp';
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    console.log("元素进入视野")
                     // 元素进入视野时，添加指定的 CSS 类
+                    el.classList.add('animate__animated');
                     el.classList.add(binding.value || defaultAnimationClass);
                     // 将透明度设置为1，使元素可见
                     el.style.opacity = 1;

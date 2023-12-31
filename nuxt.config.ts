@@ -29,12 +29,12 @@ export default defineNuxtConfig({
             meta: [
                 {charset: 'utf-8'},
                 {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-                {hid: 'keywords', name: 'keywords', content: '曲率加速器,一键开启学术加速、游戏加速，无限速无限流，超强数据加密技术，以保护线上隐私安全。'},
-                {hid: 'description', name: 'description', content: '做最好，最安全的加速器，采用最前沿的数据加密技术，使您全面掌控您的网络隐私与安全。'},
+                {hid: 'keywords', name: 'keywords', content: 'ai聊天，ai，chap gpt，聊天gbt，聊天GPT 3，聊天GPT登录，聊天GPT网站，聊天GPT，聊天GTP，聊天openai，聊天，chatai，聊天机器人gpt，chatg，chatgpt登录，chatgpt，gpt聊天，open ai，openai聊天，openai chatgpt，openai'},
+                {hid: 'description', name: 'description', content: 'ChatGPT 是一个免费使用的 AI 系统。使用它进行引人入胜的对话、获得见解、自动执行任务并见证 AI 的未来，所有这些都集中在一个地方。'},
                 {name: 'format-detection', content: 'telephone=no'},
             ],
             link: [
-                {rel: 'icon', type: 'image/x-icon', href: 'https://com-img-space.oss-cn-shenzhen.aliyuncs.com/svg/favicon.ico'},
+                {rel: 'icon', type: 'image/x-icon', href: 'https://com-img-space.oss-cn-shenzhen.aliyuncs.com/svg/cfa7732d-76db-4a5e-87f6-55680f731f7d.tmp'},
                 /*        { rel: "stylesheet", type: "text/css", href: 'https://file.kwunphi.com/kwunphi/css/' + htmlGrayCss },*/
                 // { rel: "stylesheet", type: "text/css", href: '@/assets/iconfont/iconfont.css' }
             ],
@@ -61,6 +61,7 @@ export default defineNuxtConfig({
                 //要访问的跨域的域名
                 target: "http://127.0.0.1:8001/",
                 changeOrigin: true,
+                // @ts-ignore
                 rewrite: (path) => path.replace(/^\//, ""),
             },
         },

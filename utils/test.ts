@@ -40,4 +40,4 @@ function identity5<T, U> (value: T, message: U): Identities<T, U> {
   return identities
 }
 
-console.log(identity5(68, 'Semlinker'))
+

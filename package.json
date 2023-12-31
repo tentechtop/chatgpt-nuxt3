@@ -1,6 +1,6 @@
 {
   "name": "stroxy-nuxt3",
-  "description": "曲率加速器",
+  "description": "ChatGPT",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,8 +13,6 @@
     "pm2:dev": "pm2 start ecosystem.config.js --env development"
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.2",
-    "@tailvue/nuxt": "^0.1.68",
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/nuxt": "^1.0.3",
     "@icon-park/vue-next": "^1.4.2",
@@ -22,15 +20,17 @@
     "@iconify-json/twemoji": "^1.1.10",
     "@nuxtjs/color-mode": "^3.2.0",
     "@pinia/nuxt": "^0.4.6",
+    "@tailvue/nuxt": "^0.1.68",
     "@tailwindcss/typography": "^0.5.9",
     "@types/animejs": "^3.1.7",
+    "@types/crypto-js": "^4.1.1",
+    "@types/js-cookie": "^3.0.2",
     "@types/markdown-it": "^13.0.6",
     "@types/node": "^18",
     "@unocss/nuxt": "^0.49.4",
     "@vueuse/nuxt": "^9.12.0",
-    "animejs": "^3.2.1",
     "animate.css": "^4.1.1",
-    "@types/crypto-js": "^4.1.1",
+    "animejs": "^3.2.1",
     "default-passive-events": "^2.0.0",
     "highlight.js": "^11.7.0",
     "less": "^4.2.0",
@@ -46,18 +46,22 @@
     "vue-tsc": "^0.40.4",
     "wowjs": "^1.1.3"
   },
-  "dependencies" : {
+  "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^4.2.1",
+    "@microsoft/fetch-event-source": "^2.0.1",
     "copy-to-clipboard": "^3.3.2",
     "crypto-js": "^4.1.1",
     "csshake": "^1.7.0",
     "daisyui": "^2.51.3",
     "dayjs": "^1.11.5",
+    "event-source-polyfill": "^1.0.31",
+    "highlight.js": "^11.7.0",
     "js-cookie": "^3.0.1",
     "jsbarcode": "^3.11.5",
     "jsencrypt": "^3.2.1",
+    "marked": "^9.1.1",
     "md-editor-v3": "^2.9.0",
     "pinia": "^2.0.30",
-    "vue": "^3.3.8",
-    "md-editor-v3": "^2.9.0"
+    "vue": "^3.3.8"
   }
 }

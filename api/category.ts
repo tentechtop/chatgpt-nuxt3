@@ -1,4 +1,4 @@
-import request from '~~/api/request'
+import request from '../api/request'
 export const getCategoryById = async (id: number) => {
   const res = await request.get('/category/' + id)
   return res.data

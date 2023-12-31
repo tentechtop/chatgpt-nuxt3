@@ -1,498 +1,826 @@
 <template>
-  <div class="container">
+  <div class="app">
+    <div class="vct_container">
+      <div class="refreshConversationButton"  @click="messageList=[]">
+        刷新
+      </div>
 
-    <div class="banner-container">
-      <div class="header-text-container">
-        <p>曲率帮助中心</p>
+      <div class="chat-message-container" ref="chatListDom">
+        <div class="chat-message-info-container">
+
+
+          <div v-if="filteredList.length===0" class="welcome-container">
+            <div class="chat-logo-container">
+
+              <div class="chat-logo">
+                <img src="https://com-img-space.oss-cn-shenzhen.aliyuncs.com/svg/chat-logo.svg">
+              </div>
+              <h1>How can I help you today?</h1>
+            </div>
+
+
+
+            <div class="features-container">
+
+              <div class="feature-item" v-loadByAnimate>
+                <h1>Help me study</h1>
+                <p>vocabulary for a college entrance exam</p>
+              </div>
+
+
+              <div class="feature-item" v-loadByAnimate>
+                <h1>Suggest some names</h1>
+                <p>for my cafe-by-day, bar-by-night business</p>
+              </div>
+
+              <div class="feature-item" v-loadByAnimate>
+                <h1>Explain this code:</h1>
+                <p>"cat config.yaml | awk NF"</p>
+              </div>
+
+              <div class="feature-item" v-loadByAnimate>
+                <h1>Make up a story</h1>
+                <p>about Sharky, a tooth-brushing shark superhero</p>
+              </div>
+
+
+            </div>
+          </div>
+
+
+          <div v-if="filteredList.length!==0"  class="message-container" >
+            <li v-for="(ms,msi) in filteredList">
+
+              <div class="avatar" style="background-color: rgb(25, 195, 125); width: 24px; height: 24px;" :style="ms.role!=='user'? 'padding: 2px':''">
+                <img  :src="ms.role==='user'?'https://com-img-space.oss-cn-shenzhen.aliyuncs.com/svg/unnamed.jpg':'https://com-img-space.oss-cn-shenzhen.aliyuncs.com/svg/chat-tx.svg'">
+              </div>
+
+
+              <div class="message-chat">
+                <h1>{{ roleList.get(ms.role) }}</h1>
+                <div class="res-message" v-html="markedRender(ms.content.replace(/^\n\n/, ''))"></div>
+              </div>
+            </li>
+          </div>
+
+
+
+        </div>
       </div>
-      <div class="header-text-container" style="flex-direction: column;justify-content: center">
-        <h1>请输您的问题！🙂</h1>
-        <search-bar btn="搜索" placeholder="" height="54" maxlength="32" fontSize="16px" @search=""> </search-bar>
+
+
+
+<!--      @keydown.enter="sendMsg"-->
+      <div class="bottom-container"  :style="`min-height:${bottomHeight}px`">
+        <div class="message-send-container">
+          <div class="input-container">
+            <div class="flex w-full items-center">
+              <div class="overflow-hidden [&amp;:has(textarea:focus)]:border-token-border-xheavy [&amp;:has(textarea:focus)]:shadow-[0_2px_6px_rgba(0,0,0,.05)] flex flex-col w-full dark:border-token-border-heavy flex-grow relative border border-token-border-heavy dark:text-white rounded-2xl bg-white dark:bg-gray-800 shadow-[0_0_0_2px_rgba(255,255,255,0.95)] dark:shadow-[0_0_0_2px_rgba(52,53,65,0.95)]">
+                <textarea
+                          @keydown.enter="sendOrSave()"
+                          v-model="messageContent"
+                          placeholder="Message ChatGPT…"
+                          id="prompt-textarea"
+                          :rows="inputRow"
+                          class="chat-gpt-input m-0 w-full resize-none border-0 bg-transparent py-[10px] pr-10 focus:ring-0 focus-visible:ring-0 dark:bg-transparent md:py-3.5 md:pr-12 placeholder-black/50 dark:placeholder-white/50 pl-3 md:pl-4"
+                          :class="{inputMessageTextA:true}"
+                          @input="handleInput"
+                          style="max-height: 52px;height: auto"
+                          :style="{'min-height':`${inputHeight}px`,'overflow-y':inputHeight===52? 'hidden':'auto'}">
+                </textarea>
+
+
+                <button @click="sendOrSave()"
+                        :disabled="isTalking"
+                        class="absolute md:bottom-3 md:right-3
+                        dark:hover:bg-gray-900
+                        dark:disabled:hover:bg-transparent right-2
+                        dark:disabled:bg-white disabled:bg-black
+                        disabled:opacity-10 disabled:text-gray-400
+                        enabled:bg-black text-white p-0.5 border border-black
+                        rounded-lg dark:border-white
+                        dark:bg-white bottom-1.5 transition-colors"
+                        style="cursor: pointer;z-index: 999"
+                       :style="messageContent.length>0?  'background-color: #000000;opacity: 1':'background-color: #E5E5E5;opacity: 0.8; border-color:  #E5E5E5;'"
+                        data-testid="send-button">
+                  <span class="" data-state="closed">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-white dark:text-black">
+                      <path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="all-right">
+
+          </div>
+        </div>
       </div>
+
+
     </div>
-
-
-    <div class="service-container">
-      <div class="header-text-service">
-        <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/%E6%94%B6%E8%97%8F.svg">
-        <h1>使用教程</h1>
-      </div>
-
-      <div href="https://knowledge-nuxt3.oss-cn-shenzhen.aliyuncs.com/software/clash%E9%85%8D%E7%BD%AE.docx" class="UseTutorial-container">
-        <div class="UseTutorial-item">
-          <p>Clash for Windows 使用教程</p>
-          <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/%E5%8F%B3%E7%AE%AD%E5%A4%B4.svg">
-        </div>
-        <a href="https://knowledge-nuxt3.oss-cn-shenzhen.aliyuncs.com/software/clash%E9%85%8D%E7%BD%AE.docx" class="UseTutorial-item">
-          <p>Clash for Android 使用教程</p>
-          <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/%E5%8F%B3%E7%AE%AD%E5%A4%B4.svg">
-        </a>
-        <a href="https://knowledge-nuxt3.oss-cn-shenzhen.aliyuncs.com/software/clash%E9%85%8D%E7%BD%AE.docx" class="UseTutorial-item">
-          <p>IOS 使用教程</p>
-          <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/%E5%8F%B3%E7%AE%AD%E5%A4%B4.svg">
-        </a>
-      </div>
-    </div>
-
-
-    <div class="service-container">
-      <div class="header-text-service">
-        <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/%E6%94%B6%E8%97%8F.svg">
-        <h1>软件下载</h1>
-      </div>
-
-      <div class="UseTutorial-container">
-        <a href="https://knowledge-nuxt3.oss-cn-shenzhen.aliyuncs.com/software/Clash.for.Windows.Setup.0.20.30.zip" class="UseTutorial-item">
-          <div class="text-icon-container">
-            <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/windows.svg">
-            <p>Clash for Windows</p>
-          </div>
-          <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/%E5%8F%B3%E7%AE%AD%E5%A4%B4.svg">
-        </a>
-        <a href="https://knowledge-nuxt3.oss-cn-shenzhen.aliyuncs.com/software/Clash%20for%20Android_2.5.12.premium_apkcombo.com.zip" class="UseTutorial-item">
-          <div class="text-icon-container">
-            <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/android.svg">
-            <p>Clash for Android</p>
-          </div>
-          <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/%E5%8F%B3%E7%AE%AD%E5%A4%B4.svg">
-        </a>
-        <div class="UseTutorial-item">
-
-          <div class="text-icon-container">
-            <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/IOS.svg">
-            <p>IOS 下载教程</p>
-          </div>
-
-          <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/%E5%8F%B3%E7%AE%AD%E5%A4%B4.svg">
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="service-container">
-      <div class="header-text-service">
-        <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/%E6%89%B9%E6%AC%A1%E8%BF%BD%E6%BA%AF%E8%AF%A6%E6%83%85.svg">
-        <h1>输入token生成链接</h1>
-      </div>
-      <div class="getUrlByToken-container">
-        <div class="input-token">
-          <input v-model="inputToken" placeholder="输入token" type="text" >
-          <div class="getTokenButton" @click="getUrlPathByToken">
-            生成
-          </div>
-        </div>
-
-        <div class="input-token">
-          <input class="generateUrl" ref="generateUrlByToken" v-model="getUrlByToken" placeholder="" type="text" >
-          <div class="getTokenButton" @click="copyToClipboard">
-            复制
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="service-container">
-      <div class="header-text-service">
-        <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/%E6%89%B9%E6%AC%A1%E8%BF%BD%E6%BA%AF%E8%AF%A6%E6%83%85.svg">
-        <h1>输入token查询剩余流量</h1>
-      </div>
-      <div class="getUrlByToken-container">
-        <div class="input-token query-input">
-          <input style="width: 85%" v-model="inputToken" placeholder="输入token" type="text" >
-          <div class="getTokenButton" style="width: 15%"
-          @click="getByteByToken"
-          >
-            查询
-          </div>
-        </div>
-
-        <div class="input-token flux-input">
-          <input class="generateUrl" v-model="flowByte" placeholder="" type="text" style="width: 85%">
-          <div class="getTokenButton" style="width: 15%;background-color: #ffffff;border: 1px solid rgba(0,0,0,0.1);color: #000000" >
-            Byte
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="footer-container">
-
-      <div class="footer-text-container">
-        <div class="other-services">
-          <h1>未找到您需要的内容</h1>
-          <p>通过邮件联系我们 stroxy10086@gmail.com</p>
-        </div>
-        <a href="mailto:stroxy10086@gmail.com" class="contactUsByEmail">
-          <img src="https://stroxy.oss-cn-shenzhen.aliyuncs.com/img/iconfont-email.svg">
-          <p>联系我们</p>
-        </a>
-      </div>
-      <div class="ipc-container">
-        <p>Copyright © 2018-2023 Tentech 版权所有 </p>
-        <p>湘ICP备2023014859号</p>
-      </div>
-    </div>
-
-
-
   </div>
 </template>
 
 
+
+
 <script lang="ts" setup>
-import { ref, toRefs, onMounted, getCurrentInstance,onUnmounted } from "vue";
-const { proxy } = getCurrentInstance();
-const show = ref(true)
-import { baseUrl } from '~~/config'
-import request from "~/api/request";
-import {getProject} from "~/api/project";
-import SearchBar from "~/components/search-bar.vue";
-
-const inputToken = ref("")
-
-const getUrlByToken = ref("")
+// @ts-ignore
+import { EventSourcePolyfill } from 'event-source-polyfill';
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
+import { markedRender } from '../assets/libs/highlight'
+import { ref, toRefs, onMounted, getCurrentInstance,onUnmounted,onUpdated,onBeforeUnmount   } from "vue";
+import cryptoJS from "crypto-js";
+import { chat } from "../assets/libs/gpt";
+import keywordsArray from "assets/js/keywordsChat/keywordsArray";
+let keywords = keywordsArray.keywordsArrayList; // 添加你的关键词
+import {fetchEventSource} from '@microsoft/fetch-event-source';
 
 useHead({
-  title: "曲率加速器，为速度而生，可轻松支持4K流媒体",
+  title: "ChatGPT",
   meta: [
-    {name: 'keywords', content: "曲率加速器,一键开启学术加速、游戏加速，无限速无限流，超强数据加密技术，以保护线上隐私安全。" },
-    {name: 'description', content: "做最好，最安全的加速器，采用最前沿的数据加密技术，使您全面掌控您的网络隐私与安全。" }
+    {name: 'keywords', content: "ChatGPT" },
+    {name: 'description', content: "ChatGPT" }
   ],
 })
 
-
-const flowByte =ref()
-
-const showData = ref(false)
-const dateTest = ref({})
+const disabledButton = ref(false)
 
 
-async  function getUrlPathByToken(){
-  let token = inputToken.value
-  const resp = await useFetch(`/api/ladder/link/${token}`,{
-    method:"GET",
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
-    }
-  }).then((res)=>{
 
-    if (res){
-      let response = res.data.value
-      if (response){
-        let rePath = response.data
-        if (rePath !== "false"){
-          getUrlByToken.value = 'http://stroxy.tentech.top/api'+rePath
-        }else {
-          getUrlByToken.value = '您输入的token不存在，请重新输入！'
-        }
-      }
-    }
-  })
+const roleList  = ref(new Map().set('user','You').set('assistant','ChatGPT'))
+
+let apiKey = "sk-VcsMNS2JQziQbWaFdmRvHBVqzIH0Ph6QNLN5a1X8QdaemMQ7";
+let isConfig = ref(true);
+let isTalking = ref(false);
+const isMouseOver = ref(false)
+let messageContent = ref("");
+
+
+
+
+
+
+
+// @ts-ignore
+function isStringAllSpaces(inputString) {
+  // 使用trim()方法去掉字符串两端的空格，然后检查结果是否为空字符串
+  return inputString.trim() === '';
 }
-
-
-async function getByteByToken(){
-  let token = inputToken.value
-  const resp = await useFetch(`/api/ladder/traffic/count/${token}`,{
-    method:"GET",
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
-    }
-  }).then((res)=>{
-    if (res){
-      let response = res.data.value
-      if (response){
-        let byte = response.data
-        flowByte.value=byte
-      }
-    }
-  })
-}
-
-
-/*async function getTestDate(){
-  const resp = await useFetch('http://localhost:8000/',{
-    method:"GET"
-  }).then((response) => {
-    console.log("baseUrl"+JSON.stringify(response.data.value))
-    dateTest.value=response.data.value
-    showData.value = true
-  })
-}
-const { data: archivesList, } = await useAsyncData('archives_GetList', () => getProject())
-
-dateTest.value = archivesList.value*/
-
-// 复制到剪切板的函数
-const copyToClipboard = () => {
-  // 获取输入框的值
-
-  if (getUrlByToken.value){
-    const inputElement = proxy.$refs.generateUrlByToken
-    if (inputElement) {
-      inputElement.select();
-      document.execCommand('copy');
-      // 在实际应用中，您可能还想提供一些用户反馈，例如提示消息
-      alert('链接已复制到剪切板');
-    }
+function getAvailableButton(){
+  // @ts-ignore
+  if (isStringAllSpaces(messageContent.value) ||messageContent.value.length===0 || isTalking===true ){
+    messageContent.value ='';
+    return false;
   }else {
-    alert('链接为空，请输入token生成链接');
+    return true
   }
+}
+
+
+const decoder = new TextDecoder("utf-8");
+const roleAlias = { user: "ME", assistant: "ChatGPT", system: "System" };
+const messageList = ref([
+  {
+    role: "system",
+    content: ""
+  }
+]);
+
+const filteredList = computed(() => {
+  return messageList.value.filter((v, index) => {
+    return   v.role !== 'system';
+  });
+});
+
+
+const chatListDom = ref(null);
+
+const scrollToBottom = () => {
+  if (!chatListDom.value) return;
+  if (chatListDom.value) {
+    // @ts-ignore
+    chatListDom.value.scrollTop = chatListDom.value.scrollHeight;
+  }
+};
+watch(messageList.value, () => nextTick(() => scrollToBottom()));
 
 
 
 
+onMounted(() => {
+  if (getAPIKey()) {
+    switchConfigStatus();
+  }
+});
+
+
+
+
+const appendLastMessageContent = (content: string) => (messageList.value[messageList.value.length - 1].content += content);
+
+const sendOrSave = () => {
+  if (isTalking.value===true){
+/*    console.log("正在回复中 无法输入"+isTalking.value)*/
+  }else {
+    inputHeight.value=52
+    contentHeight.value=52
+
+
+
+    if (isStringAllSpaces(messageContent.value) || messageContent.value.length===0 ){
+      messageContent.value ='';
+      return;
+    }
+    if (isConfig.value) {
+      if (saveAPIKey(messageContent.value.trim())) {
+        switchConfigStatus();
+      }
+      clearMessageContent();
+    } else {
+      const content = messageContent.value.trim()
+      let index = isKeywordHit(content, keywords)
+      if (index !== -1) {
+        // 如果包含关键词
+        keywordsChat(index);
+      } else {
+        sendChatMessage();
+      }
+    }
+  }
 };
 
+
+const sendChatMessage = async (content: string = messageContent.value) => {
+  try {
+    if (messageList.value.length === 2) {
+      messageList.value.pop();
+    }
+    messageList.value.push({ role: "user", content });
+    clearMessageContent();
+    messageList.value.push({ role: "assistant", content: "" });
+
+    const controller = new AbortController()
+    const signal = controller.signal
+    fetchEventSource('/api/v1/chat/completions', {
+      method: 'POST',
+      signal:signal,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        stream: true,
+        messages: messageList.value,
+      }),
+      onmessage(event) {
+        if (event.data !=='[DONE]'){
+          const message = JSON.parse(event.data);
+          appendLastMessageContent(message.choices[0].delta.content);
+          isTalking.value=true
+/*          console.log("回复中"+isTalking.value)*/
+        }else {
+          isTalking.value = false;
+/*          console.log("回复完成")*/
+          controller.abort()
+        }
+      },
+      onclose(){
+/*        console.log("回复完成并,关闭")*/
+        isTalking.value = false;
+        controller.abort()
+      },
+      onerror(err){
+/*        console.log('发生错误:', err);*/
+        isTalking.value = false;
+        appendLastMessageContent("CONNECT ERROR");
+        throw err
+      }
+    })
+  } catch (error: any) {
+    appendLastMessageContent(error);
+  } finally {
+    isTalking.value = false;
+  }
+};
+
+
+const readStream = async (
+    reader: ReadableStreamDefaultReader<Uint8Array>,
+    status: number
+) => {
+  let partialLine = "";
+
+  while (true) {
+    // eslint-disable-next-line no-await-in-loop
+    const { value, done } = await reader.read();
+    if (done) break;
+
+    const decodedText = decoder.decode(value, { stream: true });
+
+    if (status !== 200) {
+      const json = JSON.parse(decodedText); // start with "data: "
+      const content = json.error.message ?? decodedText;
+      appendLastMessageContent(content);
+      return;
+    }
+
+    const chunk = partialLine + decodedText;
+    const newLines = chunk.split(/\r?\n/);
+
+    partialLine = newLines.pop() ?? "";
+
+    for (const line of newLines) {
+      if (line.length === 0) continue; // ignore empty message
+      if (line.startsWith(":")) continue; // ignore sse comment message
+      if (line === "data: [DONE]") return; //
+
+      const json = JSON.parse(line.substring(6)); // start with "data: "
+      const content =
+          status === 200
+              ? json.choices[0].delta.content ?? ""
+              : json.error.message;
+      appendLastMessageContent(content);
+    }
+  }
+};
+
+
+//余弦相似度 处理英文
+function cosineSimilarity(str1, str2) {
+  // 将字符串转换为词语数组
+  const tokenize = (str) => str.toLowerCase().match(/\w+/g) || [];
+
+  const tokens1 = tokenize(str1);
+  const tokens2 = tokenize(str2);
+
+  // 创建词频向量
+  const vector1 = {};
+  const vector2 = {};
+
+  tokens1.forEach((token) => {
+    vector1[token] = (vector1[token] || 0) + 1;
+  });
+
+  tokens2.forEach((token) => {
+    vector2[token] = (vector2[token] || 0) + 1;
+  });
+
+  // 计算余弦相似度
+  const dotProduct = Object.keys(vector1).reduce((acc, token) => {
+    return acc + (vector1[token] || 0) * (vector2[token] || 0);
+  }, 0);
+
+  const magnitude1 = Math.sqrt(Object.keys(vector1).reduce((acc, token) => {
+    return acc + Math.pow(vector1[token] || 0, 2);
+  }, 0));
+
+  const magnitude2 = Math.sqrt(Object.keys(vector2).reduce((acc, token) => {
+    return acc + Math.pow(vector2[token] || 0, 2);
+  }, 0));
+
+  if (magnitude1 === 0 || magnitude2 === 0) {
+    return 0;  // 处理零向量
+  }
+
+  return dotProduct / (magnitude1 * magnitude2);
+}
+
+
+//编辑距离相似度
+function similarity(str1, str2) {
+  const longer = str1.length > str2.length ? str1 : str2;
+  const shorter = str1.length > str2.length ? str2 : str1;
+  const longerLength = longer.length;
+  if (longerLength === 0) {
+    return 1.0;
+  }
+  const editDistance = new Array(longerLength + 1);
+  for (let i = 0; i <= longerLength; i++) {
+    editDistance[i] = new Array(shorter.length + 1);
+    editDistance[i][0] = i;
+  }
+  for (let j = 0; j <= shorter.length; j++) {
+    editDistance[0][j] = j;
+  }
+  for (let i = 1; i <= longerLength; i++) {
+    for (let j = 1; j <= shorter.length; j++) {
+      const cost = longer[i - 1] === shorter[j - 1] ? 0 : 1;
+      editDistance[i][j] = Math.min(
+          editDistance[i - 1][j] + 1,
+          editDistance[i][j - 1] + 1,
+          editDistance[i - 1][j - 1] + cost
+      );
+    }
+  }
+  const maxLen = Math.max(str1.length, str2.length);
+  const editDistanceValue = editDistance[longerLength][shorter.length];
+  const similarity = (1.0 - editDistanceValue / maxLen);
+  return similarity;
+}
+const similarThreshold = 0.75; // 设置相似度阈值
+function isKeywordHit(content) {
+  let keywordsArray = keywords;
+  const matchingIndices = [];
+  let matchingIndicesMap = new Map()
+  for (let i = 0; i < keywordsArray.length; i++) {
+    const keywords = keywordsArray[i];
+    const similarities = keywords.map(keyword => similarity(content, keyword));
+    const maxSimilarity = Math.max(...similarities);
+    if (maxSimilarity >= similarThreshold) {
+      matchingIndices.push(i);
+      matchingIndicesMap.set(i,maxSimilarity)
+    }
+  }
+  if (matchingIndices.length > 0) {
+    let maxSimilarityIndex = -1;
+    let maxSimilarityValue = -1;
+    matchingIndicesMap.forEach((similarityValue, index) => {
+      if (similarityValue > maxSimilarityValue) {
+        maxSimilarityValue = similarityValue;
+        maxSimilarityIndex = index;
+      }
+    });
+    return maxSimilarityIndex;
+  } else {
+    return -1;
+  }
+}
+
+function keywordsChat(index){
+  let content = ""
+  content = messageContent.value
+  isTalking.value = true;
+  if (messageList.value.length === 2) {
+    messageList.value.pop();
+  }
+  messageList.value.push({ role: "user", content });
+  clearMessageContent();
+  let message = ""
+  if (keywordsArray.keywordsMap.get(index)){
+    message = keywordsArray.keywordsMap.get(index).message
+  }
+  messageList.value.push({ role: "assistant", content: "" });
+
+  const messageChunks = message.split(""); // 拆分消息成字符数组
+  let currentIndex = 0;
+
+  /*流式输出*/
+  const addMessage = () => {
+    if (currentIndex < messageChunks.length) {
+      messageList.value[messageList.value.length-1].content += messageChunks[currentIndex];
+      currentIndex++;
+      if (currentIndex < messageChunks.length) {
+        setTimeout(addMessage, 20); // 每隔1秒添加下一个字符
+        isTalking.value = true;
+      } else {
+        isTalking.value = false;
+      }
+    }
+  };
+  // 开始添加消息字符
+  addMessage();
+}
+
+const saveAPIKey = (apiKey: string) => {
+  if (apiKey.slice(0, 3) !== "sk-" || apiKey.length !== 51) {
+    alert("API Key 错误，请检查后重新输入！");
+    return false;
+  }
+  const aesAPIKey = cryptoJS.AES.encrypt(apiKey, getSecretKey()).toString();
+  localStorage.setItem("apiKey", aesAPIKey);
+  return true;
+};
+
+
+
+
+
+
+
+
+
+
+const getAPIKey = () => {
+  if (apiKey) return apiKey;
+  const aesAPIKey = localStorage.getItem("apiKey") ?? "";
+  apiKey = cryptoJS.AES.decrypt(aesAPIKey, getSecretKey()).toString(
+      cryptoJS.enc.Utf8
+  );
+  return apiKey;
+};
+const getSecretKey = () => "lianginx";
+const switchConfigStatus = () => (isConfig.value = !isConfig.value);
+const clearMessageContent = () => (messageContent.value = "");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const inputHeight = ref(52)
+const bottomHeight = ref(85)
+const inputRow = ref(1)
+
+const contentHeight = ref(0)
+const lineHeightA = ref(0)
+
+const handleInput = () => {
+  const textarea = document.getElementById('prompt-textarea') as HTMLTextAreaElement;
+  const lineHeight = parseInt(getComputedStyle(textarea).lineHeight);
+  contentHeight.value = textarea.scrollHeight;
+  const newInputRow = Math.max(Math.ceil(contentHeight.value / lineHeight), 1); // Ensure the minimum is 1
+
+  // Update inputRow
+  inputRow.value = newInputRow;
+
+  if (messageContent.value==="" || messageContent.value.length===0){
+    contentHeight.value = 52
+  }
+  textarea.style.height = 'auto'; // Reset height to auto to allow it to shrink
+  textarea.style.height = `${textarea.scrollHeight}px`; // Set the height to match the content
+
+  // Ensure the calculated height is within the specified range
+  inputHeight.value = Math.min(Math.max(textarea.scrollHeight, 52), 200);
+
+  if (messageContent.value==="" || messageContent.value.length===0){
+    inputHeight.value = 52
+  }
+/*  console.log("inputHeight.value: " + inputHeight.value + " contentHeight" +contentHeight);*/
+};
+
+
+
+
+watch(messageContent,(newValue)=>{
+  if (messageContent.value==="" || messageContent.value.length===0){
+    inputRow.value = 1;
+    inputHeight.value=52
+
+    const textarea = document.getElementById('prompt-textarea') as HTMLTextAreaElement;
+    textarea.value=''
+    textarea.style.height = "52px";
+  }
+})
+
+
+const handleWidthChange = () => {
+  // 在宽度小于768px时执行的函数
+  // 可以在这里添加你的逻辑
+/*  console.log('Window width is less than 768px!');*/
+};
+
+const addResizeListener = () => {
+  window.addEventListener('resize', handleWidthChange);
+};
+
+const removeResizeListener = () => {
+  window.removeEventListener('resize', handleWidthChange);
+};
+
+onBeforeUnmount(() => {
+  // 组件销毁前移除监听器，防止内存泄漏
+  removeResizeListener();
+});
 </script>
 
-<style lang="scss" scoped>
-.container{
-  width: 100vw;
+<style scoped>
+.vct_container{
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.inputMessageTextA{
+
+}
+.chat-message-container{
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.chat-message-container::-webkit-scrollbar {
+  width: 9px;
+  height: 0px;
+  background: transparent;
+  overflow-x: auto;
+}
+
+
+.chat-message-info-container{
+  width: 748px;
+  height: 100%;
+
+}
+
+.bottom-container{
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-send-container{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 768px;
+}
+
+
+.welcome-container{
+  width: 100%;
+  height: 100%;
   max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100px;
-  background-color: #F3F6FB;
+  justify-content: space-between;
 }
 
-
-
-.banner-container{
+.chat-logo-container{
   width: 100%;
-  min-height: 300px;
-  background-color: #186DE9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.header-text-container{
-  padding-top: 24px;
-  width: 100%;
-  max-width: 1000px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-}
-.header-text-container>p{
-  color: #ffffff;
-  font-size: 20px;
-  font-weight: 700;
-}
-.header-text-container>h1{
-  color: #ffffff;
-  font-weight: 600;
-}
-.service-container{
-  padding: 24px 0;
-  width: 100%;
-  max-width: 1000px;
-  display: flex;
-  flex-direction: column;
-}
-.header-text-service{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-}
-.header-text-service>h1{
-  font-size: 26px;
-  font-weight: 700;
-
-}
-.header-text-service>img{
-  width: 30px;
-  margin-right: 16px;
-}
-.UseTutorial-container{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.UseTutorial-item{
-  cursor: pointer;
-  width: calc(50% - 16px);
-  min-height: 70px;
-  border-radius: 5px;
-  background-color: #ffffff;
-  box-shadow: 1px 3px 3px rgba(0,0,0,0.1);
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 16px 5px 16px;
-}
-.UseTutorial-item:hover{
-  box-shadow: 1px 3px 5px rgba(0,0,0,0.2);
-}
-.text-icon-container{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.text-icon-container>img{
-  width: 16px;
-  margin-right: 16px;
-}
-.text-icon-container>p{
-  color: #000000;
-  font-size: 16px;
-}
-.UseTutorial-item>img{
-  width: 16px;
-}
-.UseTutorial-item>p{
-  color: #000000;
-  font-size: 16px;
-}
-.getUrlByToken-container{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.input-token{
-  width: 100%;
-  padding: 1px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-.input-token>input{
-  border: 1px solid rgba(0,0,0,0.1);
-  outline: none;
-  padding: 5px 20px;
-  height: 54px;
-  width: 90%;
-  font-size: 18px;
-  color: #333333;
-}
-.input-token>input:focus{
-  outline: none;
-}
-.getTokenButton{
-  min-width: 99px;
-  height: 54px;
-  background-color: #1769E0;
-  width: 10%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 16px;
 }
-.getTokenButton:hover{
-  background-color: #448CE3;
-}
-.footer-container{
-  padding: 24px 0;
-  width: 100%;
-  background-color: #ffffff;
+
+.chat-logo{
+  height: 72px;
+  width: 72px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  border: 1px solid rgba(0,0,0,0.075);
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.095);
+  border-radius: 100000px;
 }
-.footer-text-container{
-  width: 100%;
-  max-width: 1000px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+
+.chat-logo-container>img{
+  width: 48px;
+  height: 48px;
 }
-.other-services{
-  display: flex;
-  flex-direction: column;
-}
-.other-services>h1{
-  font-size: 22px;
-  font-weight: 700;
+
+.chat-logo-container>h1{
+  font-size: 24px;
+  font-weight: 500;
   color: #303133;
 }
-.other-services>p{
-  font-size: 14px;
-  color: #606266;
-}
-.contactUsByEmail{
-  cursor: pointer;
-  background-color: #1972F5;
-  padding: 10px 16px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 5px;
-}
-.contactUsByEmail>img{
-  width: 24px;
-  margin-right: 10px;
-}
-.contactUsByEmail>p{
-  color: #ffffff;
-}
-.ipc-container{
-  padding-top: 24px;
+
+.features-container{
   width: 100%;
-  max-width: 1000px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
-.ipc-container>p{
+
+
+.feature-item{
+  cursor: pointer;
+  width: calc(50% - 5px);
+  min-height: 64px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.075);
+  margin-bottom: 10px;
+  padding: 12px 16px;
+}
+.feature-item >h1{
+  font-weight: 500;
+  font-size: 15px;
+  margin: 0;
+  color: #303133;
+}
+
+.feature-item >p{
+  font-size: 14px;
+  margin: 0;
   color: #909399;
 }
 
-.query-input{
-  width: calc(70% - 16px)
-}
-.flux-input{
-  width: calc(30% - 16px)
-}
-@media screen and (max-width: 1032px){
-  .container{
-    padding: 0 16px;
-  }
-  .header-text-container{
-    padding: 16px 16px;
-  }
-  .footer-text-container{
-    padding: 0 16px;
-  }
-  .ipc-container{
-    padding: 0 16px;
-  }
+
+.message-container{
+  position: relative;
+  margin: 16px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
 }
 
-@media screen and (max-width: 767px){
-  .UseTutorial-item{
-    width: 100%;
-  }
-  .query-input{
-    width: 100%;
-  }
-  .flux-input{
-    width: 100%;
-  }
+.message-container>li{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 16px;
 }
+
+
+.avatar{
+  border-radius: 50000px;
+  overflow: hidden;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar>img{
+  border-radius: 50000px;
+  object-fit: cover;
+}
+.message-chat{
+  width: calc(100% - 38px);
+}
+.message-chat>h1{
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+
+}
+
+
+.chat-gpt-input{
+  color: #303133;
+  font-size: 16px;
+  text-align: start; /* 文本水平居中 */
+  line-height: 1.6; /* 控制文本在垂直方向的居中 */
+}
+
+.input-container{
+  width: 100%;
+  min-height: 52px;
+}
+
+.chat-gpt-input::-webkit-input-placeholder{
+  height: 52px;line-height: 26px
+}    /* 使用webkit内核的浏览器 */
+.chat-gpt-input:-moz-placeholder{
+  height: 52px;line-height: 26px
+}                  /* Firefox版本4-18 */
+.chat-gpt-input::-moz-placeholder{
+  height: 52px;line-height: 26px
+}                  /* Firefox版本19+ */
+.chat-gpt-input:-ms-input-placeholder{
+  height: 52px;line-height: 26px
+}
+.chat-gpt-input:focus{
+  outline: none;
+
+}
+
+.refreshConversationButton{
+  z-index: 999;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 8px 20px;
+}
+
+.input-bg-black{
+  background-color: #000000;
+}
+
+/*@media screen and ( max-width: 800px){
+  .vct_container{
+    padding: 0 10px;
+  }
+
+}*/
 </style>

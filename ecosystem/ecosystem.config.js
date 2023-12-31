@@ -1,7 +1,7 @@
 module.exports = {
     apps: [{
-        name: 'stroxy-nuxt3',
-        port: '3001',
+        name: 'chat-nuxt3',
+        port: '3003',
         script: '../.output/server/index.mjs',
         out_file: '../logs/out.log', // 日志输出
         error_file: '../logs/error.log', // 错误日志

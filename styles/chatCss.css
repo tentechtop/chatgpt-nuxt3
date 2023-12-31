@@ -1,0 +1,191 @@
+.bgColor {
+
+    background-color: #ffffff;
+}
+
+.fontColor {
+    color: #f7f7f7;
+}
+
+.elBtnStyle {
+    font-weight: bold;
+}
+
+.el-button--info {
+    background-color: #f7f7f7 !important;
+}
+
+.elBtnStyle span {
+    letter-spacing: 1px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #333333;
+}
+
+.el-textarea__inner {
+    color: #000000;
+    font-size: 1.1rem !important;
+}
+
+/*code*/
+pre {
+    position: relative;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border: 1px solid rgb(208, 215, 222);
+    border-radius: 6px;
+}
+
+code {
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+p code {
+    position: relative;
+    padding: 3px 4px;
+    border-radius: 3px;
+    background-color: #f0f0f0 !important;
+}
+
+p code:after {
+  display: inline-block;
+  position: absolute;
+  content: "";
+  left: 50%;
+  bottom: 0;
+  width: 95%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  border-bottom: 1px solid black;
+}
+
+ul li code {
+    position: relative;
+    padding: 3px 4px;
+    border-radius: 3px;
+    background-color: transparent;
+}
+
+ul li code:after {
+  display: inline-block;
+  position: absolute;
+  content: "";
+  left: 50%;
+  bottom: 0;
+  width: 95%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+}
+
+.copyNode {
+    z-index: 2;
+    cursor: pointer;
+    position: absolute;
+    padding: 0.1rem 0.4rem;
+    top: 1rem;
+    right: 1rem;
+    border: 1px solid rgb(208, 215, 222);
+    border-radius: 6px;
+}
+
+.copyNode:hover {
+    cursor: pointer;
+    background-color: #f2f2f2;
+}
+
+.copyNode:active {
+    cursor: pointer;
+    background-color: #e6e6e6;
+}
+
+/*code*/
+.clearfix{
+    background: #FFFFFF;
+    margin: 16px 0;
+}
+
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.hljs{
+    background-color: #FFFFFF;
+}
+
+textarea::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #f2f2f2;
+}
+
+textarea::-webkit-scrollbar-track {
+    background-color: #f2f2f2;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+}
+
+/*markdown 表格*/
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+    border: 1px solid #dee2e6;
+}
+
+th,
+td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border: 1px solid #dee2e6;
+}
+
+th {
+    text-align: left;
+    background-color: #f2f2f2;
+}
+
+
+/* 兼容IE和Edge */
+body {
+    -ms-overflow-style: none;
+}
+
+.fix-primary {
+    background-color: #409eff !important;
+    border: 1px solid #409EFF !important;
+}
+
+.triangle {
+    width: 41px;
+    height: 41px;
+}
+
+.res-message >p{
+    font-size: 19px;
+    line-height: 28px;
+    color: #2d2d2d;
+}
+
+.res-message > ol{
+    margin: 16px 0;
+    /*设置列举字体间距*/
+}
+
+.res-message > ol >li{
+    margin: 8px 0;
+    font-size: 19px;
+    color: #2d2d2d;
+
+}
+
+.res-message > ol >li::marker{
+    font-size: 19px;
+    color: #2d2d2d;
+}

@@ -1,4 +1,5 @@
 export default {
+    // @ts-ignore
     mounted(el,binding){
 
         // 获取按钮的初始文字(获取验证码)

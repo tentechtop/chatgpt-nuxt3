@@ -1,8 +1,9 @@
 import { ref } from 'vue'
 import { LocationQueryValue } from 'vue-router'
+// @ts-ignore
 import dayjs from 'dayjs'
 import { useStorage } from '@vueuse/core'
-import api from '@/api/index'
+import api from '../api/index'
 // 分类
 const categoryOptions: any = ref([])
 // 标签
@@ -11,11 +12,13 @@ export const xBLogStore = useStorage('x-blog-store', { likes: [], })
 
 const getOptions = async (type: string) => {
   if (type === '分类') {
+    // @ts-ignore
     const { data: res, } = await useAsyncData('index_GetCategory', () => api.getAllCategory())
     // console.log('=>>>>>>>>>>>>>>>>>>>>>', res)
     categoryOptions.value = res.value.filter((v: any) => v.articleCount)
     // console.log(res)
   } else {
+    // @ts-ignore
     const { data: res, } = await useAsyncData('index_GetTag', () => api.getAllTag())
     tagsOptions.value = res.value
       .filter((v: any) => v.articleCount)
@@ -61,6 +64,7 @@ export const updateLikes = async (data: any) => {
 // const store = useStore()
 // 更新点赞数
 export const updateLikesHandle = async (item: any) => {
+  // @ts-ignore
   const { uid, } = useUserInfo().value
   const id = item.id as never
   const send = {

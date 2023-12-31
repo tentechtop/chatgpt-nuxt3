@@ -1,4 +1,4 @@
-import request from '~~/api/request'
+import request from '../api/request'
 export const getTagById = async (id: number) => {
   const res = await request.get('/tag/' + id)
   return res.data
