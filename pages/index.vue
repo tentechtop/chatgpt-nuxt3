@@ -264,7 +264,7 @@ const sendChatMessage = async (content: string = messageContent.value) => {
 
     const controller = new AbortController()
     const signal = controller.signal
-    fetchEventSource('/api/v1/chat/completions', {
+    fetchEventSource('https://ai.tentech.top/v1/chat/completions', {
       method: 'POST',
       signal:signal,
       headers: {
@@ -609,7 +609,6 @@ onBeforeUnmount(() => {
 
 }
 .chat-message-container{
-
   position: relative;
   width: 100%;
   height: 100%;
@@ -630,8 +629,14 @@ onBeforeUnmount(() => {
 .chat-message-info-container{
   width: 748px;
   height: 100%;
-
 }
+
+@media screen and (max-width: 748px){
+  width: 100%;
+  padding: 0 16px;
+}
+
+
 
 .bottom-container{
   position: relative;
@@ -736,8 +741,8 @@ onBeforeUnmount(() => {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: start;
-  justify-content: start;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .message-container>li{

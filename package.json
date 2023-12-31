@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build --dotenv .env.production",
+    "build:dev": "nuxt build --dotenv .env.development",
     "dev": "nuxt dev --port 5050 --dotenv .env.development",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

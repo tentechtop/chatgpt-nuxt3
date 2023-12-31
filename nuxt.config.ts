@@ -56,8 +56,8 @@ export default defineNuxtConfig({
             serverDir: '.output/server',
             publicDir: '.output/public'
         },
-        devProxy: {
-            "/api": {
+/*        prodProxy: {
+            "/chatApi": {
                 //要访问的跨域的域名
                 target: "http://127.0.0.1:8001/",
                 changeOrigin: true,
@@ -65,6 +65,15 @@ export default defineNuxtConfig({
                 rewrite: (path) => path.replace(/^\//, ""),
             },
         },
+        devProxy: {
+            "/chatApi": {
+                //要访问的跨域的域名
+                target: "http://127.0.0.1:8001/",
+                changeOrigin: true,
+                // @ts-ignore
+                rewrite: (path) => path.replace(/^\//, ""),
+            },
+        },*/
     },
     plugins: [
         "@/plugins/Directives",
