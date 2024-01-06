@@ -152,7 +152,11 @@ const disabledButton = ref(false)
 
 const roleList  = ref(new Map().set('user','You').set('assistant','ChatGPT'))
 
-let apiKey = "sk-VcsMNS2JQziQbWaFdmRvHBVqzIH0Ph6QNLN5a1X8QdaemMQ7";
+let apiKey = "sk-7eLfqi1RRheP7HpkQswwrRqqUQLae0OScbjru8plvZGsGtiM";
+const requestPath = ref('https://api.chatanywhere.com.cn/v1/chat/completions')
+
+
+
 let isConfig = ref(true);
 let isTalking = ref(false);
 const isMouseOver = ref(false)
@@ -264,7 +268,7 @@ const sendChatMessage = async (content: string = messageContent.value) => {
 
     const controller = new AbortController()
     const signal = controller.signal
-    fetchEventSource('https://ai.tentech.top/v1/chat/completions', {
+    fetchEventSource(requestPath.value, {
       method: 'POST',
       signal:signal,
       headers: {
