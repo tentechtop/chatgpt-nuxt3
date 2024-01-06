@@ -77,6 +77,7 @@
             <div class="flex w-full items-center">
               <div class="overflow-hidden [&amp;:has(textarea:focus)]:border-token-border-xheavy [&amp;:has(textarea:focus)]:shadow-[0_2px_6px_rgba(0,0,0,.05)] flex flex-col w-full dark:border-token-border-heavy flex-grow relative border border-token-border-heavy dark:text-white rounded-2xl bg-white dark:bg-gray-800 shadow-[0_0_0_2px_rgba(255,255,255,0.95)] dark:shadow-[0_0_0_2px_rgba(52,53,65,0.95)]">
                 <textarea
+                          @keydown.enter.prevent
                           @keydown.enter="sendOrSave()"
                           v-model="messageContent"
                           placeholder="Message ChatGPT…"
