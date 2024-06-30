@@ -97,24 +97,20 @@
         </div>
 
 
-
-
-        <div class="flex_r_between drawer-container" >
+        <div class="flex_r_between drawer-container"  style="z-index: 99999;">
           <!--     左开   direction="ltr"-->
-          <el-drawer :title="$t('menu.navigation')" class="drawer-mobile_menu" v-model="headerState.drawerShow" :before-close="handleClose" :append-to-body="true" size="70%" :z-index="9998">
+          <el-drawer :title="$t('menu.navigation')" class="drawer-mobile_menu"
+                     close-on-press-escape
+                     lock-scroll
+                     v-model="headerState.drawerShow"
+                     :before-close="handleClose"
+                     :append-to-body="true"
+                     size="70%"
+                     :z-index="9998">
             <el-menu class="mobile-container" :default-active="getPath" :ellipsis="false" @select="(val) => handleSelect(val, 'mobile')">
               <el-menu-item index="/"> {{ $t('menu.home') }}</el-menu-item>
 
-
-
-
-
-
-
-
-
             </el-menu>
-
             <div class="drawer-select-container">
               <div class="drawer-select-split-line"></div>
               <div class="select-button-container">
@@ -148,6 +144,10 @@
           </el-drawer>
         </div>
       </div>
+
+
+
+
 
       <client-only>
         <el-dialog
@@ -703,7 +703,9 @@ function triggerSelectMenuEvent() {
   background-color: rgba(0, 0, 0, 0.03);
 }
 
+.drawer-mobile_menu{
 
+}
 
 .drawer-mobile_menu .el-drawer__header .el-drawer__title {
   font-size: 18px;
@@ -712,17 +714,18 @@ function triggerSelectMenuEvent() {
 
 
 .drawer-mobile_menu .el-drawer__header .el-drawer__close-btn:hover .el-drawer__close>svg {
-  color: #6C7073;
+  color: #222222;
 }
 
 .drawer-mobile_menu .el-drawer__header .el-drawer__close-btn .el-drawer__close {
-  height: 26px;
-  width: 26px;
+  height: 30px;
+  width: 30px;
 }
 
 .drawer-mobile_menu .el-drawer__header .el-drawer__close-btn .el-drawer__close>svg {
-  height: 26px;
-  width: 26px;
+  color: #222222;
+  height: 30px;
+  width: 30px;
   transform: rotate(0deg);
   transition: all 0.3s ease;
 }
@@ -825,7 +828,7 @@ function triggerSelectMenuEvent() {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 99;
   width: 100%;
   height: 50px;
   box-sizing: border-box;
