@@ -280,6 +280,7 @@ interface Message {
   content: string;
   role: "user" | "assistant" | "system";
   followUp:[],
+  isRight:boolean
 }
 const messageList = ref<Message[]>([]);
 const roleMap  = ref(new Map().set('user','You').set('assistant','Kwunphi'))
@@ -421,26 +422,25 @@ const sendChatMessage = async (content: string = messageContent.value) => {
     // Handle errors
     if (!completion.ok) {
       const errorData = await completion.json();
-      console.log("错误信息： "+errorData )
+      console.error("错误信息： "+errorData )
       return;
     }
     let reader = completion.body?.getReader();
     if (!reader) {
-      console.log("读取器不存在： " )
+      console.error("读取器不存在： " )
     }
     messageList.value.push({ role: "assistant", content: "" ,createTime:getFormatDate(new Date()), followUp:[] ,isRight:true});
-    readCoze(reader, messageList).catch((error)=>{
-      messageList.value.pop()
-      messageList.value[messageList.value.length-1].isRight=false
-    })
-/*    if(websiteConfigStore.getWebsiteConfig?.isCoze == 1){
-
+    if(websiteConfigStore.getWebsiteConfig?.isCoze == 1){
+      readCoze(reader, messageList).catch((error)=>{
+        messageList.value.pop()
+        messageList.value[messageList.value.length-1].isRight=false
+      })
     }else {
       read(reader, messageList).catch((error)=>{
         messageList.value.pop()
         messageList.value[messageList.value.length-1].isRight=false
       })
-    }*/
+    }
   } catch (error: any) {
     appendLastMessageContent(error);
   } finally {
@@ -554,9 +554,6 @@ function getHistoryTopic(){
 
           historyTopicMessage.value = currentTopic.value?.messageList
           /*          messageList.value = currentTopic.value?.messageList*/
-
-
-
 
           for (let i = historyTopic.value.length - 1; i >= 0; i--) {
             for(let j = 0; j < historyTopic.value[i].messageList.length; j++){
@@ -1229,7 +1226,7 @@ watch(locale,(newValue)=>{
 
 }
 
-@media screen  and ( max-width: 424px){
+@media screen  and ( max-width: 492px){
   .chat-windows{
     right: 0;
     width: calc(100% - 16px);
