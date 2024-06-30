@@ -1,6 +1,6 @@
 // css 变量定义主题 :root根元素html标签的伪类
 :root {
-  --main-color: #007BFF;
+  --main-color: var(--background-color-menu);
   --nav-color: #092756;
   --box-shadow: 0 4px 12px #000026;
 
@@ -19,23 +19,26 @@
   --text-color2: #1f2937b3;
   --hover-color: #f9f9f9;
   --border-radius: 4px;
-  --scrollbar-bgc: #CCCCCC; //滚动条颜色
+  --scrollbar-bgc: #8B8B8B;
   --border-color: var(--minor-bgc);
   --layout-border-radius: 8px;
   --el-color-primary: var(--main-color);
 }
 
 :root.dark {
-  --main-color: #37cdbe;
+  --main-color: var(--background-color-menu);
+  --main-bgc: #222831;
+
+
   --nav-color: rgba(33, 39, 48, 0.94);
   --box-shadow: 0 4px 12px #000026;
-  --main-bgc: #222831;
+
   --minor-bgc: #2a303c;
   --text-color: rgba(255, 255, 255, 0.85);
   --text-color2: rgba(255, 255, 255, 0.65);
   --hover-color: rgba(255, 255, 255, 0.08);
   --border-radius: 4px;
-  --scrollbar-bgc: #CCCCCC;
+  --scrollbar-bgc: #8B8B8B;
   --border-color: var(--minor-bgc);
   --el-color-primary: var(--main-color);
 }

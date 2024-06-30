@@ -1,4 +1,3 @@
-
 div,
 header,
 footer,
@@ -10,6 +9,7 @@ section,
 aside {
   box-sizing: border-box;
 }
+
 body {
   min-height: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -20,7 +20,7 @@ body {
 }
 // 选中背景和文字颜色
 ::selection {
-  background: var(--main-color);
+  background: #007BFF;
   color: #fff;
 }
 // 去除a标签默认下划线
@@ -51,7 +51,7 @@ a:hover {
 .fl {
   float: left;
 }
-.clearfix {
+/*.clearfix {
   &:after {
     visibility: hidden;
     display: block;
@@ -60,7 +60,7 @@ a:hover {
     clear: both;
     height: 0;
   }
-}
+}*/
 
 ::-webkit-scrollbar {
   width: 6px;
@@ -71,5 +71,23 @@ a:hover {
 /* 滚动槽 */
 ::-webkit-scrollbar-track {
   border-radius: 0;
+  // background: transparent;
+  background: var(--main-bgc);
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  background:#646060;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  background:#646060;
+}
+
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-corner {
+  background: transparent;
+
 }
 

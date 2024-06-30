@@ -5,6 +5,7 @@ import directives from "@/utils/directive";
 export default defineNuxtPlugin((nuxtApp) => {
     // 通过循环注册所有指令
     for(let key in directives){
+        // @ts-ignore
         nuxtApp.vueApp.directive(key,directives[key])
     }
 })

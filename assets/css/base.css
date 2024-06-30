@@ -1,0 +1,264 @@
+/* color palette from <https://github.com/vuejs/theme> */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    font-weight: normal;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.html-text-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.html-text-container  p{
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px 0;
+    line-height: 1.2;
+    color: var(--color-text-1) !important;
+}
+.html-text-container  span{
+
+}
+.html-text-container img,video{
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    height: auto;
+    max-height: 800px;
+}
+.html-text-container img{
+    cursor: pointer;
+}
+
+.html-text-container ul  {
+    padding: 0 0 0 0px;
+}
+.html-text-container ul li {
+    /*    list-style-type: disc;*/
+    font-weight: 300;
+    color: var(--color-text-1);
+}
+.html-text-container ul li::before {
+    content: "• ";
+    color: var(--color-text-1); /* 可以自定义颜色 */
+    font-weight: 100;
+}
+.html-text-container strong{
+    font-weight: 700;
+    color: var(--color-text-1);
+}
+.html-text-container strong >span{
+    font-weight: 700;
+    color: var(--color-text-1);
+}
+
+
+
+
+.html-text-container strong >tr{
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.html-text-container li, p,span,h1,h2,h3,h4,h5,h6,a{
+
+}
+
+
+
+/*
+.html-text-container ul li::before {
+    content: "";
+    display: inline-block;
+    width: 10px; !* 圆点的直径 *!
+    height: 10px;
+    border-radius: 50%; !* 使边框完全圆滑 *!
+    background-color: black; !* 圆点的颜色 *!
+    margin-right: 10px; !* 圆点和文本之间的间距 *!
+}
+*/
+
+.i-icon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.i-icon >svg{
+    width: 18px !important;
+    height: 18px !important;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+    border: none;
+    float: left;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+:root {
+    --component-width:1088px;
+    --component-width-value:1088;
+
+    --neutral-color: #808080; /* 50%黑和50%白混合的灰色 */
+    --light-neutral-color: #D3D3D3; /* 较浅的灰色 */
+    --medium-neutral-color: #808080; /* 中等的灰色 */
+    --dark-neutral-color: #333333;  /* 较深的灰色 */
+}
+
+html {
+    --container-background:#FFFFFF;
+    --color-background: #FAFAFC;
+
+    /*字体颜色 从黑色到灰白色*/
+    --color-text-1: #101010; /* 更暗 */
+    --color-text-2: #202020; /* 更暗 */
+    --color-text-3: #505050; /* 更暗 */
+    --color-text-4: #808080; /* 更暗 */
+    --color-text-5: #B0B0B0; /* 更亮 */
+    --color-text-6: #E0E0E0; /* 更亮 */
+    --color-text-7: #F0F0F0; /* 更亮 */
+    --color-text-8: #FFFFFF; /* 白色 */
+
+
+
+    --color-text-a-1:#0066CC;
+
+
+
+
+    --nav-background-color: rgba(255, 255, 255, 0.75);
+    --select-menu-background-color: rgba(255, 255, 255, 0.75);
+    --isSelectingMenu: rgba(255, 255, 255, 0);
+    --brightness-value:1;
+
+
+    /*反差色*/
+    --background-color-menu: rgba(20, 20, 20,1);
+
+
+
+    --link-item-background-color:rgba(255, 255, 255,0);
+
+
+    --special-background-color:transparent;
+
+    --special-box-background-color:#FFFFFF;
+}
+
+html.dark {
+    --container-background:#1D1D1F;
+    --color-background: #1D1D1F;
+
+    /*字体颜色 从白色到灰白色*/
+    --color-text-1: #FAFAFC; /* 白色，最亮 */
+    --color-text-2: #F5F5F5; /* 稍微暗一点 */
+    --color-text-3: #E0E0E0; /* 更暗一些 */
+    --color-text-4: #D0D0D0; /* 进一步变暗 */
+    --color-text-5: #C0C0C0; /* 更深的灰色 */
+    --color-text-6: #B0B0B0; /* 深灰色 */
+    --color-text-7: #A0A0A0; /* 接近黑色，但不是纯黑 */
+    --color-text-8: #000000; /* 黑色，最暗 */
+
+
+
+    --color-text-a-1:#B0B0B0;
+
+
+    --nav-background-color: rgba(0, 0, 0, 0.90);
+    --select-menu-background-color: rgba(30, 30, 35, 0.86);
+    --isSelectingMenu: rgba(255, 255, 255, 0);
+    --brightness-value:100;
+
+    --background-color-menu: rgba(230, 230, 240,0.95);
+
+
+    --link-item-background-color:rgba(255, 255, 255, 0.65);
+
+    --special-background-color:var(--light-neutral-color);
+
+
+
+    --special-box-background-color:var(--light-neutral-color);
+
+}
+
+
+
+
+
+.container{
+    background-color: var(--container-background);
+}
+
+
+
+
+.c-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.margin-box{
+    padding: 16px 0;
+}
+
+
+.el-form-item__label{
+    color: var(--color-text-1);
+}
+
+
+@media screen and (max-width: 768px){
+    .tbody{
+        width: 100% !important;
+        transition: all 0.3s ease;
+        height: auto !important;
+    }
+
+    .margin-box{
+        padding: 4px 0;
+    }
+
+    tr{
+        height: auto !important;
+        width: 100% !important;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    table {
+        width: 100% !important;
+        height: auto !important;
+        display: block;
+    }
+
+    td, th ,td{
+        width: 100% !important;
+        height: auto !important;
+        display: block;
+        vertical-align: inherit;
+        border-color: inherit;
+    }
+}

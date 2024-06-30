@@ -10,7 +10,6 @@
 
 html {
   line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
 }
 
 /* Sections
@@ -37,9 +36,41 @@ main {
  * `article` contexts in Chrome, Firefox, and Safari.
  */
 
-h1 {
-  font-size: 2em;
+h1{
+  font-weight: normal;
   margin: 0;
+  padding: 0;
+}
+
+h2{
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+h3{
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+
+h4{
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+h5{
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+h6{
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
 }
 
 /* Grouping content
@@ -61,9 +92,12 @@ hr {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 
+
+/*代码字体*/
 pre {
   font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+  font-size: 18px; /* 2 */
+  line-height: 26px;
 }
 
 /* Text-level semantics
@@ -262,6 +296,7 @@ progress {
 
 textarea {
   overflow: auto;
+  resize: none;
 }
 
 /**
@@ -349,26 +384,3 @@ template {
 [hidden] {
   display: none;
 }
-
-
-*, :after, :before {
-  border: 0 solid #d9d9e3;
-  box-sizing: border-box
-}
-
-:after, :before {
-  --tw-content: ""
-}
-
-
-h1, h2, h3, h4, h5, h6{
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: inherit
-}
-
-
-

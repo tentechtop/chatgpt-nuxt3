@@ -1,3 +1,8 @@
+a{
+    color: #000;
+}
+
+
 .bgColor {
 
     background-color: #ffffff;
@@ -32,54 +37,66 @@ pre {
     position: relative;
     width: 100%;
     background-color: #ffffff;
-    padding: 1.5rem;
+    padding: 0;
     border: 1px solid rgb(208, 215, 222);
     border-radius: 6px;
+    overflow-x: auto;
 }
 
 code {
     width: 100%;
-    background-color: #FFFFFF;
+    background-color: transparent;
 }
 
+code:after {
+    background-color: transparent;
+}
+
+/*关键字*/
 p code {
     position: relative;
     padding: 3px 4px;
     border-radius: 3px;
-    background-color: #f0f0f0 !important;
+    background-color: transparent !important;
+    color: #fff;
+    font-weight: 400;
 }
 
+
+
+/*细线*/
 p code:after {
-  display: inline-block;
-  position: absolute;
-  content: "";
-  left: 50%;
-  bottom: 0;
-  width: 95%;
-  transform: translateX(-50%);
-  box-sizing: border-box;
-  border-bottom: 1px solid black;
+    display: inline-block;
+    position: absolute;
+    content: "";
+    left: 50%;
+    bottom: 0;
+    width: 95%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0,0,0,0);
 }
 
 ul li code {
     position: relative;
-    padding: 3px 4px;
+    padding: 2px 3px;
     border-radius: 3px;
     background-color: transparent;
 }
 
 ul li code:after {
-  display: inline-block;
-  position: absolute;
-  content: "";
-  left: 50%;
-  bottom: 0;
-  width: 95%;
-  transform: translateX(-50%);
-  box-sizing: border-box;
+    display: inline-block;
+    position: absolute;
+    content: "";
+    left: 50%;
+    bottom: 0;
+    width: 95%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
 }
 
 .copyNode {
+    display: none;/*复制按钮*/
     z-index: 2;
     cursor: pointer;
     position: absolute;
@@ -100,8 +117,12 @@ ul li code:after {
     background-color: #e6e6e6;
 }
 
+/*代码样式*/
 /*code*/
 .clearfix{
+    width: 100%;
+    max-width: 332px;
+    overflow-x: auto;
     background: #FFFFFF;
     margin: 16px 0;
 }
@@ -114,7 +135,7 @@ ul li code:after {
 }
 
 .hljs{
-    background-color: #FFFFFF;
+    background-color: transparent;
 }
 
 textarea::-webkit-scrollbar {
@@ -167,7 +188,7 @@ body {
     height: 41px;
 }
 
-.res-message >p{
+/*.res-message >p{
     font-size: 19px;
     line-height: 28px;
     color: #2d2d2d;
@@ -175,17 +196,157 @@ body {
 
 .res-message > ol{
     margin: 16px 0;
-    /*设置列举字体间距*/
+    transform: translateX(3rem);
 }
 
 .res-message > ol >li{
     margin: 8px 0;
-    font-size: 19px;
+    font-size: 16px;
     color: #2d2d2d;
-
 }
 
 .res-message > ol >li::marker{
     font-size: 19px;
     color: #2d2d2d;
+}*/
+
+
+.res-message{
+    width: 100%;
 }
+.res-message p{
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+
+}
+
+.res-message > ol{
+    margin: 8px 11px 8px 0;
+    transform: translateX(1rem);
+}
+
+.res-message > ol >li{
+    margin: 4px 0;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+.res-message >ul >li{
+    margin: 4px 0;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+.res-message > ol >li::marker{
+    font-size: 16px;
+    color: #FFFFFF;
+}
+.res-message >p >a{
+    color: #FFFFFF;
+    word-break: break-all;/*超宽换行*/
+}
+
+.userMessageRes{
+    width: 100%;
+
+}
+.userMessageRes >p{
+    font-size: 14px;
+    line-height: 20px;
+    color: #FFFFFF;
+}
+
+.userMessageRes > ol{
+    margin: 8px 0;
+    transform: translateX(1rem);
+}
+
+.userMessageRes > ol >li{
+    margin: 4px 0;
+    font-size: 16px;
+    color: #1C293B;
+}
+
+.userMessageRes > ol >li::marker{
+    font-size: 16px;
+    color: #1C293B;
+}
+
+
+.copyMessageButton{
+    cursor: pointer;
+    position: absolute;
+    bottom: -23px;
+    right: 0;
+    height: 23px;
+    width: 23px;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+}
+.copyMessageButton:hover{
+    background-color: #f1f1f1;
+}
+
+.copyMessageButton:active{
+    background-color: #f1f1f1;
+}
+
+.copyMessageButton::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: url('https://file.kwunphi.com/kwunphi4/images/svg/%E5%A4%8D%E5%88%B6.svg') center center no-repeat;
+    background-size: cover; /* 根据需要调整背景图片的大小 */
+}
+
+.copyMessageButton:active::before {
+    background-image: url('https://file.kwunphi.com/kwunphi4/images/svg/%E6%88%90%E5%8A%9F.svg');
+}
+
+
+.alreadyCopied{
+    cursor: pointer;
+    position: absolute;
+    bottom: -23px;
+    right: 0;
+    height: 23px;
+    width: 23px;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+}
+
+.alreadyCopied::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: url('https://file.kwunphi.com/kwunphi4/images/svg/%E6%88%90%E5%8A%9F.svg') center center no-repeat;
+    background-size: cover; /* 根据需要调整背景图片的大小 */
+}
+
+
+
+.AnswerNotSatisfactory{
+    cursor: pointer;
+    position: absolute;
+    bottom: -23px;
+    left: 0;
+    height: 23px;
+    width: calc(100% - 23px);
+    background-color: #F3f3f3;
+    border: none;
+    border-radius: 5px;
+}
+

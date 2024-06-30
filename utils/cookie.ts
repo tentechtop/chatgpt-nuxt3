@@ -1,4 +1,3 @@
-
 import Cookies from 'js-cookie'
 const TokenKey = 'nuxt_blog_token'
 const InfoKey = 'nuxt_blog_info'
@@ -22,7 +21,10 @@ export function getInfo () {
     return JSON.parse(unescape(userInfo))
   }
 }
-
+export function setInfo (userData = {}) {
+  userData = JSON.stringify(userData)
+  return Cookies.set(InfoKey, userData, { expires: day, })
+}
 
 export function removeInfo () {
   return Cookies.remove(InfoKey)

@@ -1,12 +1,3 @@
-// 自定义字体
-/*@font-face {
-  font-family: HarmonyOS-Sans;
-  src: url(@/assets/font/HarmonyOS_Sans_SC_Regular.woff2);
-}*/
-// @font-face {
-//   font-family: ZhuZiAWan;
-//   src: url(@/assets/font/ZhuZiAWan.tff);
-// }
 div,
 header,
 footer,
@@ -24,8 +15,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: HarmonyOS-Sans, ZhuZiAWan, -apple-system, Helvetica Neue, Helvetica, PingFang SC,
-    Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
 // 选中背景和文字颜色
 ::selection {
@@ -34,7 +23,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
   height: 0px;
   background: transparent;
   overflow-x: auto;
@@ -43,16 +32,15 @@ body {
 /* 滚动槽 */
 ::-webkit-scrollbar-track {
   width: 0px;
-  border-radius: 0px;
+  border-radius: 5px;
   background: transparent;
 }
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
-  width: 6px;
-  border-radius: 10000px;
+  width: 8px;
+  border-radius: 10px;
   background: var(--scrollbar-bgc);//这里可以设置透明
   transition: all 0.2s;
-
 }
 
 /* 滚动条滑块 hover */
@@ -153,7 +141,7 @@ body {
   &::after {
     content: '';
     height: 104px;
-    @apply absolute left-0 top-0 w-full from-black bg-gradient-to-r to-gray-700;
+  @apply absolute left-0 top-0 w-full from-black bg-gradient-to-r to-gray-700;
   }
 }
 .gradient-bar {

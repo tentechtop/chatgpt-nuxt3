@@ -48,8 +48,9 @@ renderer.paragraph = function(text) {
 // 代码块
 renderer.code = (code, language) => {
   const validLanguage = !!(language && hljs.getLanguage(language))
+  // @ts-ignore
   const highlighted = validLanguage ? hljs.highlight(code, { language }).value : hljs.highlightAuto(code).value
-  return `<pre class='clearfix'><button class='copyNode'>Copy</button><code class='${language} hljs'>${highlighted}</code></pre>\n`
+  return `<pre class='clearfix'><code class='${language} hljs'>${highlighted}</code></pre>\n`
 }
 
 // 配置 marked

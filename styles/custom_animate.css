@@ -1,0 +1,248 @@
+/*出现*/
+.animate__fadeInUpByCustom {
+    animation-name:fadeInUpByCustom;
+    animation-duration: 5s;
+    transition: all 5s ease;
+}
+@keyframes fadeInUpByCustom{
+    0%{
+        opacity: 0;
+        transform:translate3d(0,50px,0);
+    }
+    100% {
+        opacity: 1;
+        transform:translate3d(0,0px,0);
+    }
+}
+.animate__fadeOutUpByCustom {
+    animation-name:fadeOutUpByCustom;
+    animation-duration: 5s;
+    transition: all 5s ease;
+}
+@keyframes fadeOutUpByCustom{
+    0%{
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+
+
+
+
+
+.animate__itemInByAnim {
+    animation-name:fadeInUpByCustom;
+    animation-duration: 5s;
+    transition: all 5s ease;
+    animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards; /* Firefox prefix */
+}
+@keyframes fadeInUpByCustom{
+    0%{
+        opacity: 0;
+        transform:translate3d(0,50px,0);
+    }
+    100% {
+        opacity: 1;
+        transform:translate3d(0,0px,0);
+    }
+}
+
+
+/*消失*/
+.animate__zoomOutByCustom {
+    animation-name: zoomInByCustom;
+    animation-duration: 5s;
+    transition: all 5s ease;
+    animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards; /* Firefox prefix */
+}
+@keyframes zoomInByCustom{
+    0%{
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+.animate__fadeOutByCustom {
+    animation-name: zoomInByCustom;
+    animation-duration: 5s;
+    transition: all 5s ease;
+    animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards; /* Firefox prefix */
+}
+@keyframes zoomInByCustom{
+    0%{
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+
+
+
+
+
+/*下移出现*/
+.animate__fadeInUpMenu {
+    animation-name:fadeInUpMenu;
+    animation-duration: 0.6s;
+}
+@keyframes fadeInUpMenu{
+    0%{
+        opacity: 0;
+        height: 0;
+        transform:translate3d(0,-20px,0);
+    }
+    100% {
+        opacity: 1;
+        height: auto;
+        transform:translate3d(0,0px,0);
+    }
+}
+/*右移出现*/
+.animate__fadeInRightMenu {
+    animation-name:fadeInRightMenu;
+    animation-duration: 0.5s;
+}
+@keyframes fadeInRightMenu{
+    0%{
+        opacity: 0;
+        transform:translate3d(20px,0%,0);
+    }
+    100% {
+        opacity: 1;
+        transform:translate3d(0,0px,0);
+    }
+}
+/*左移出现*/
+.animate__fadeInLeftMenu {
+    animation-name:fadeInLeftMenu;
+    animation-duration: 0.5s;
+}
+@keyframes fadeInLeftMenu{
+    0%{
+        opacity: 0;
+        transform:translate3d(-20px,0%,0);
+    }
+    100% {
+        opacity: 1;
+        transform:translate3d(0,0px,0);
+    }
+}
+
+
+/*上移消失*/
+.animate__fadeOutDownMenu {
+    animation-name:fadeOutDownMenu;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards; /* Firefox prefix */
+}
+@keyframes fadeOutDownMenu{
+    0%{
+        opacity: 1;
+        transform:translate3d(0,0px,0);
+    }
+    100% {
+        transform:translate3d(0,-20%,0);
+        opacity: 0;
+        display: none;
+    }
+}
+
+/*右移消失*/
+.animate__fadeOutRightMenu {
+    animation-name:fadeOutRightMenu;
+    animation-duration: 0.5s;
+}
+@keyframes fadeOutRightMenu{
+    0%{
+        opacity: 1;
+        transform:translate3d(20px,0%,0);
+    }
+    100% {
+        opacity: 0;
+        display: none;
+        transform:translate3d(0,0px,0);
+    }
+}
+/*左移消失*/
+.animate__fadeOutLeftMenu {
+    animation-name:fadeOutLeftMenu;
+    animation-duration: 0.5s;
+}
+@keyframes fadeOutLeftMenu{
+    0%{
+        opacity: 1;
+        transform:translate3d(-20px,0%,0);
+    }
+    100% {
+        opacity: 0;
+        display: none;
+        transform:translate3d(0,0px,0);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/*出现*/
+.animate__fadeInUpMenuContainer {
+    background-color: var(--select-menu-background-color);
+    animation-name:fadeInUpMenuContainer;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards; /* Firefox prefix */
+}
+@keyframes fadeInUpMenuContainer{
+    0%{
+        opacity: 1;
+        transform:translate3d(0,-20px,0);
+        backdrop-filter: blur(0px);/*模糊化背景*/
+    }
+    100% {
+        opacity: 1;
+        transform:translate3d(0,0px,0);
+        backdrop-filter: blur(20px);/*模糊化背景*/
+    }
+}
+
+
+/*消失*/
+.animate__fadeOutDownMenuContainer {
+    background-color: var(--color-background);
+    animation-name:fadeOutDownMenuContainer;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards; /* Firefox prefix */
+}
+@keyframes fadeOutDownMenuContainer{
+    0%{
+        opacity: 1;
+        backdrop-filter: blur(20px);/*模糊化背景*/
+    }
+    100% {
+        opacity: 0;
+        backdrop-filter: blur(0px);/*模糊化背景*/
+        display: none;
+        visibility: hidden;
+    }
+}
