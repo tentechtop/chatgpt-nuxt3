@@ -1,26 +1,8 @@
 <template>
   <div class="container">
-    <client-only>
-
-
-
       <adaptive-containers :max-width="1088">
-        <div v-if="!pageDataLoading" class="html-text-container" v-html="pageData?.text6">
-
-        </div>
-
+        <div class="html-text-container" v-html="result?.text6"/>
       </adaptive-containers>
-
-
-
-
-
-
-
-
-
-
-    </client-only>
   </div>
 </template>
 
@@ -54,31 +36,21 @@ function setPageSeo(){
 setPageSeo()
 
 
-const pageData = ref({})
-const pageDataLoading = ref(true)
-function fetchModuleAllDataList(params) {
-  // 使用axios发送GET请求
-  axios.get(httpPrefix+'/official-api/page-module/queryModuleBySlug',{
-    params: params
-  })
-      .then(function (response) {
-        pageData.value = response.data.result
-        pageDataLoading.value = false
-      })
-      .catch(function (error) {
-        // 请求失败，处理错误
-        console.error('请求失败:', error);
-        pageDataLoading.value = true
-      });
-}
-
-
-onBeforeMount(() => {
-  fetchModuleAllDataList({
+const pageData = ref([])
+let {result} = await $fetch(httpPrefix+'/official-api/page-module/queryModuleBySlug',{
+  params: {
     slug: "ether_page_home_module",
     language: locale.value
-  })
+  },
+  onResponse(){}
 })
+onServerPrefetch(async () => {
+  pageData.value = result
+})
+
+
+
+
 
 </script>
 
