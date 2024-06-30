@@ -477,15 +477,25 @@
     width: auto;
     height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 0 5px 0 0;
 }
 .drawer-logo>img{
-    height: 39%;
-    object-fit: cover;
+    cursor: pointer;
+    width: 34px;
+    margin-right: 5px;
 }
+
+.drawer-logo>span{
+    color: var(--color-text-1);
+    font-size: 22px;
+    font-weight: 700;
+    font-family: "Bodoni MT Poster Compressed";
+}
+
+
 
 .drawer-select-container{
     margin-top: 16px;

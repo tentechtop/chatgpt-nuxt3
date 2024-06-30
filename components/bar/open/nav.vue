@@ -90,6 +90,7 @@
       <div class="mobile_menu flex_r_between">
         <nuxt-link :to="localePath('/')" class="drawer-logo">
           <img  :src="theme=='light'? (locale.startsWith('zh') ? logo['black']:logo['black-en']) :(locale.startsWith('zh') ? logo['white']:logo['white-en'])">
+          <span>Ether Ai</span>
         </nuxt-link>
         <div class="flex_items-center">
           <left-directory-button :theme="navPosition" :active-value="headerState.drawerShow" @click="headerState.drawerShow = !headerState.drawerShow" style="margin-left: 20px"></left-directory-button>
