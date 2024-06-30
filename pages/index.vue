@@ -42,7 +42,6 @@ function setPageSeo(){
   let seoMap = seoStore.getSeoMap || new Map()
   let pageSEO = seoMap.get(`ether/seo/home`)
   if (pageSEO){
-    console.log(pageSEO)
     useHead({
       title: pageSEO.title,
       meta: [

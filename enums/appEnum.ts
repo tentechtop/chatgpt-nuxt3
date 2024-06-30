@@ -1,5 +1,5 @@
-export const TITLE = 'Kwunphi'
-export const COMPANY = '怪虫机器人'
+export const TITLE = 'Ether AI'
+export const COMPANY = 'Ether AI'
 
 const isDev = process.env.NODE_ENV === 'development'
 

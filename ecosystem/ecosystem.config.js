@@ -1,6 +1,6 @@
 module.exports = {
     apps: [{
-        name: 'tentech-nuxt3',
+        name: 'ether-ai-nuxt3',
         port: '3000',
         script: '../.output/server/index.mjs',
         out_file: '../logs/out.log', // 日志输出

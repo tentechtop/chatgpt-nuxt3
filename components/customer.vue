@@ -138,7 +138,7 @@ const router = useRouter()
 const localePath = useLocalePath();
 const route = useRoute()
 import cryptoJS from "crypto-js";
-import keywordsArray from "assets/js/keywordsChat/keywordsArray";
+
 import {markedRender} from "assets/libs/highlight";
 
 

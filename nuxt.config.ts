@@ -77,18 +77,6 @@ export default defineNuxtConfig({
             ],
             script: [
                 { src: 'https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.4/libs/oversea/index.js' },
-/*                { src: 'https://www.recaptcha.net/recaptcha/api.js?render=6LdplZkpAAAAAGK5Y30z91gd0WF2cQnvskPMLJEN', type: 'text/javascript' },*/
-                // 引入百度统计 https://tongji.baidu.com/
-                // { src: '@/assets/iconfont/iconfont.js', type: 'text/javascript' },
-                /*{ src: 'https://hm.baidu.com/hm.js?bbe5df24e1c24e850d281175d369d6d0' },*/
-                // { src: 'https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.2.5/polyfill.min.js' }
-                // {
-                //     //type: 'type/javascript',
-                //     src: 'https://api.map.baidu.com/getscript?v=2.0&ak=AUP3eN9CHqxqQm0DPM0Vm9hFPSqljRqo'
-                // }
-                // {
-                //     src: 'https://webapi.amap.com/maps?v=2.0&key=57c56b646db5005d46733a1ec1c29a12'
-                // }
             ]
         },
         // 转场动画
